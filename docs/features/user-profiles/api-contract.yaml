@@ -1,0 +1,188 @@
+openapi: 3.0.0
+info:
+  title: Malik Shelter API - User Profiles
+  version: 1.0.0
+  description: API for Adopter Profile management, validation, and review.
+servers:
+  - url: https://api.malik-shelter.com/v1
+
+tags:
+  - name: Profiles
+    description: Adopter self-service profile management
+  - name: Admin Adopters
+    description: Staff review of adopter profiles
+
+paths:
+  /me/profile:
+    get:
+      summary: Retrieve current user's adopter profile
+      operationId: getMyProfile
+      tags: [Profiles]
+      security: [{ bearerAuth: [] }]
+      responses:
+        '200':
+          description: Adopter profile details and completion status
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProfileResponse'
+        '404':
+          description: Profile not found (user may not be an adopter)
+
+    patch:
+      summary: Partially update adopter profile (Step-by-Step)
+      operationId: updateMyProfile
+      tags: [Profiles]
+      security: [{ bearerAuth: [] }]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateProfileRequest'
+      responses:
+        '200':
+          description: Profile updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProfileResponse'
+
+  /me/profile/photos:
+    post:
+      summary: Upload environment/home photos
+      operationId: uploadHomePhoto
+      tags: [Profiles]
+      security: [{ bearerAuth: [] }]
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                photo:
+                  type: string
+                  format: binary
+                description:
+                  type: string
+      responses:
+        '201':
+          description: Photo uploaded
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success: { type: boolean, example: true }
+                  data: { $ref: '#/components/schemas/HomePhoto' }
+
+  /me/profile/photos/{photoId}:
+    delete:
+      summary: Delete a home photo
+      operationId: deleteHomePhoto
+      tags: [Profiles]
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - name: photoId
+          in: path
+          required: true
+          schema: { type: string, format: uuid }
+      responses:
+        '204':
+          description: Photo deleted
+
+  /adopters/{id}:
+    get:
+      summary: Review an adopter's profile (Staff only)
+      operationId: getAdopterProfile
+      tags: [Admin Adopters]
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: string, format: uuid }
+      responses:
+        '200':
+          description: Detailed adopter profile for review
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProfileResponse'
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  schemas:
+    ProfileResponse:
+      type: object
+      properties:
+        success: { type: boolean, example: true }
+        data:
+          $ref: '#/components/schemas/AdopterProfileDetail'
+        meta:
+          type: object
+          properties:
+            completion_percentage: { type: integer, example: 45 }
+            is_complete: { type: boolean, example: false }
+            missing_fields:
+              type: array
+              items: { type: string }
+
+    AdopterProfileDetail:
+      type: object
+      properties:
+        user_id: { type: string, format: uuid }
+        full_name: { type: string }
+        phone: { type: string }
+        address: { type: string }
+        occupation: { type: string }
+        residence_type: { type: string }
+        ownership_status: { type: string, enum: [OWN, RENT] }
+        landlord_permit_url: { type: string, format: uri, nullable: true }
+        outdoor_area: { type: string }
+        resident_count: { type: integer }
+        has_children: { type: boolean }
+        allergy_details: { type: string }
+        existing_pets: { type: string }
+        ownership_history: { type: string }
+        vet_references: { type: string }
+        time_pet_alone: { type: string }
+        activity_level: { type: string }
+        future_plans: { type: string }
+        status: { type: string, enum: [DRAFT, COMPLETED] }
+        home_photos:
+          type: array
+          items:
+            $ref: '#/components/schemas/HomePhoto'
+
+    HomePhoto:
+      type: object
+      properties:
+        id: { type: string, format: uuid }
+        photo_url: { type: string, format: uri }
+        description: { type: string }
+
+    UpdateProfileRequest:
+      type: object
+      properties:
+        full_name: { type: string }
+        phone: { type: string }
+        address: { type: string }
+        occupation: { type: string }
+        residence_type: { type: string }
+        ownership_status: { type: string, enum: [OWN, RENT] }
+        outdoor_area: { type: string }
+        resident_count: { type: integer }
+        has_children: { type: boolean }
+        allergy_details: { type: string }
+        existing_pets: { type: string }
+        ownership_history: { type: string }
+        vet_references: { type: string }
+        time_pet_alone: { type: string }
+        activity_level: { type: string }
+        future_plans: { type: string }

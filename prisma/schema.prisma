@@ -1,0 +1,165 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model Animal {
+  id                    String   @id @default(uuid())
+  name                  String
+  species               String
+  breed                 String
+  gender                String
+  age_months            Int
+  weight_kg             Float
+  bio                   String?
+  origin                String?
+  is_sterilized         Boolean
+  medical_summary       String?
+  dietary_requirements  String?
+  energy_level          String?
+  social_compatibility  String?
+  training_level        String?
+  status                String   // AVAILABLE, PENDING, ADOPTED, NOT_READY
+  created_at            DateTime @default(now())
+  updated_at            DateTime @updatedAt
+
+  photos                AnimalPhoto[]
+  adoption_requests      AdoptionRequest[]
+
+  @@index([species, status, gender, age_months])
+}
+
+model AnimalPhoto {
+  id          String   @id @default(uuid())
+  animal_id   String
+  animal      Animal   @relation(fields: [animal_id], references: [id])
+  photo_url   String
+  is_main     Boolean  @default(false)
+  sort_order  Int      @default(0)
+  created_at  DateTime @default(now())
+}
+
+model User {
+  id                String            @id @default(uuid())
+  email             String            @unique
+  password_hash     String
+  role              String            // ADMIN, STAFF, ADOPTER
+  created_at        DateTime          @default(now())
+  updated_at        DateTime          @updatedAt
+
+  staff_profile     StaffProfile?
+  adopter_profile   AdopterProfile?
+  adoption_requests AdoptionRequest[]
+}
+
+model StaffProfile {
+  user_id             String            @id
+  user                User              @relation(fields: [user_id], references: [id])
+  full_name           String
+  department          String
+  visit_slot_templates VisitSlotTemplate[]
+}
+
+model AdopterProfile {
+  user_id             String   @id
+  user                User     @relation(fields: [user_id], references: [id])
+  full_name           String
+  phone               String?  // PII - Encrypted
+  address             String?  // PII - Encrypted
+  occupation          String?
+  residence_type      String?
+  ownership_status    String?  // Enum: OWN, RENT
+  landlord_permit_url String?
+  outdoor_area        String?
+  resident_count      Int?
+  has_children        Boolean? @default(false)
+  allergy_details     String?
+  existing_pets       String?
+  ownership_history   String?
+  vet_references      String?  // PII - Encrypted
+  time_pet_alone      String?
+  activity_level      String?
+  future_plans        String?
+  status              String   @default("DRAFT") // DRAFT, COMPLETED
+  created_at          DateTime @default(now())
+  updated_at          DateTime @updatedAt
+
+  home_photos         AdopterHomePhoto[]
+}
+
+model AdopterHomePhoto {
+  id              String         @id @default(uuid())
+  adopter_id      String
+  adopter_profile AdopterProfile @relation(fields: [adopter_id], references: [user_id])
+  photo_url       String
+  description     String?
+  created_at      DateTime       @default(now())
+}
+
+model VisitSlotTemplate {
+  id                String   @id @default(uuid())
+  created_by_id     String
+  created_by        StaffProfile @relation(fields: [created_by_id], references: [user_id])
+  day_of_week       String   // MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY, ALL
+  start_time        String   // HH:mm:ss
+  end_time          String   // HH:mm:ss
+  capacity_per_slot Int      @default(1)
+  is_active         Boolean  @default(true)
+  created_at        DateTime @default(now())
+  updated_at        DateTime @updatedAt
+
+  slots             VisitSlot[]
+}
+
+model VisitSlot {
+  id                String            @id @default(uuid())
+  template_id       String?
+  template          VisitSlotTemplate? @relation(fields: [template_id], references: [id])
+  date              DateTime
+  start_time        DateTime
+  end_time          DateTime
+  capacity          Int               @default(1)
+  current_bookings  Int               @default(0)
+  version           Int               @default(0) // For Optimistic Locking
+  created_at        DateTime          @default(now())
+  updated_at        DateTime          @updatedAt
+
+  bookings          VisitBooking[]
+
+  @@index([date])
+}
+
+model AdoptionRequest {
+  id               String   @id @default(uuid())
+  adopter_id       String
+  adopter          User     @relation(fields: [adopter_id], references: [id])
+  animal_id        String
+  animal           Animal   @relation(fields: [animal_id], references: [id])
+  status           String   @default("PENDING") // PENDING, APPROVED, REJECTED, REJECTED_AUTO
+  visit_notes      String?
+  last_notified_at DateTime?
+  created_at       DateTime @default(now())
+  updated_at       DateTime @updatedAt
+
+  bookings         VisitBooking[]
+
+  @@index([status])
+}
+
+model VisitBooking {
+  id                  String          @id @default(uuid())
+  visit_slot_id       String
+  visit_slot          VisitSlot       @relation(fields: [visit_slot_id], references: [id])
+  adoption_request_id String
+  adoption_request    AdoptionRequest @relation(fields: [adoption_request_id], references: [id])
+  status              String          @default("SCHEDULED") // SCHEDULED, CHECKED_IN, COMPLETED, CANCELLED, NO_SHOW
+  created_at          DateTime        @default(now())
+  updated_at          DateTime        @updatedAt
+}
+

@@ -1,0 +1,282 @@
+openapi: 3.0.0
+info:
+  title: Malik Shelter API - Adoption Flow
+  version: 1.0.0
+  description: API endpoints for managing adoption visit requests, scheduling, and adoption finalization.
+servers:
+  - url: http://localhost:3000/v1
+    description: Local development server
+
+tags:
+  - name: Adoption Requests
+    description: Operations related to visit requests and status updates.
+  - name: Visit Slots
+    description: Operations for finding and managing fixed daily slots.
+  - name: Settings
+    description: Administrative configurations for the shelter.
+
+paths:
+  /adoption-requests:
+    get:
+      summary: List all adoption requests (Staff only)
+      operationId: listAdoptionRequests
+      tags: [Adoption Requests]
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - name: status
+          in: query
+          schema: { type: string, enum: [PENDING, APPROVED, REJECTED, REJECTED_AUTO] }
+        - name: species
+          in: query
+          schema: { type: string, enum: [Dog, Cat] }
+        - name: adopter_name
+          in: query
+          schema: { type: string }
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/Limit'
+      responses:
+        '200':
+          description: List of requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdoptionRequestList'
+
+    post:
+      summary: Submit a new visit request (Adopter only)
+      operationId: createAdoptionRequest
+      tags: [Adoption Requests]
+      security: [{ bearerAuth: [] }]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateAdoptionRequest'
+      responses:
+        '201':
+          description: Request submitted
+        '403':
+          description: Profile incomplete or unauthorized
+
+  /adoption-requests/my:
+    get:
+      summary: List current user's adoption requests
+      operationId: getMyRequests
+      tags: [Adoption Requests]
+      security: [{ bearerAuth: [] }]
+      responses:
+        '200':
+          description: User's requests
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AdoptionRequest'
+
+  /adoption-requests/{id}:
+    delete:
+      summary: Cancel a visit request (Adopter only)
+      operationId: cancelAdoptionRequest
+      tags: [Adoption Requests]
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: string, format: uuid }
+      responses:
+        '204':
+          description: Request cancelled
+
+  /adoption-requests/{id}/status:
+    patch:
+      summary: Update request status (Staff only)
+      operationId: updateRequestStatus
+      tags: [Adoption Requests]
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: string, format: uuid }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [status]
+              properties:
+                status: { type: string, enum: [APPROVED, REJECTED] }
+                reason: { type: string }
+      responses:
+        '200':
+          description: Status updated
+
+  /animals/{id}/finalize-adoption:
+    post:
+      summary: Finalize adoption for a pet (Staff only)
+      description: Updates animal to ADOPTED and auto-rejects all other pending requests.
+      operationId: finalizeAdoption
+      tags: [Adoption Requests]
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: string, format: uuid }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [adoption_request_id]
+              properties:
+                adoption_request_id: { type: string, format: uuid }
+      responses:
+        '200':
+          description: Adoption finalized and cleanup triggered
+
+  /visit-slots/available:
+    get:
+      summary: Get available slots for a pet
+      operationId: getAvailableSlots
+      tags: [Visit Slots]
+      parameters:
+        - name: animal_id
+          in: query
+          required: true
+          schema: { type: string, format: uuid }
+        - name: start_date
+          in: query
+          schema: { type: string, format: date }
+      responses:
+        '200':
+          description: Available slots
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/VisitSlot'
+
+  /settings/visit-slot-templates:
+    get:
+      summary: List all slot templates (Staff only)
+      operationId: listSlotTemplates
+      tags: [Settings]
+      security: [{ bearerAuth: [] }]
+      responses:
+        '200':
+          description: List of templates
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/VisitSlotTemplate'
+    post:
+      summary: Create a new slot template (Staff only)
+      operationId: createSlotTemplate
+      tags: [Settings]
+      security: [{ bearerAuth: [] }]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VisitSlotTemplate'
+      responses:
+        '201':
+          description: Template created
+
+  /settings/visit-slot-templates/{id}:
+    delete:
+      summary: Delete a slot template (Staff only)
+      operationId: deleteSlotTemplate
+      tags: [Settings]
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: string, format: uuid }
+      responses:
+        '204':
+          description: Template deleted
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  parameters:
+    Page:
+      name: page
+      in: query
+      schema: { type: integer, default: 1 }
+    Limit:
+      name: limit
+      in: query
+      schema: { type: integer, default: 20 }
+
+  schemas:
+    AdoptionRequest:
+      type: object
+      properties:
+        id: { type: string, format: uuid }
+        adopter:
+          type: object
+          properties:
+            id: { type: string, format: uuid }
+            name: { type: string }
+        animal:
+          type: object
+          properties:
+            id: { type: string, format: uuid }
+            name: { type: string }
+        slot:
+          $ref: '#/components/schemas/VisitSlot'
+        status: { type: string, enum: [PENDING, APPROVED, REJECTED, REJECTED_AUTO] }
+        created_at: { type: string, format: date-time }
+
+    AdoptionRequestList:
+      type: object
+      properties:
+        items:
+          type: array
+          items: { $ref: '#/components/schemas/AdoptionRequest' }
+        total: { type: integer }
+
+    CreateAdoptionRequest:
+      type: object
+      required: [animal_id, slot_id, date]
+      properties:
+        animal_id: { type: string, format: uuid }
+        slot_id: { type: string, format: uuid }
+        date: { type: string, format: date }
+
+    VisitSlot:
+      type: object
+      properties:
+        id: { type: string, format: uuid }
+        start_time: { type: string, example: "10:00:00" }
+        end_time: { type: string, example: "11:00:00" }
+        capacity: { type: integer }
+        current_bookings: { type: integer }
+
+    VisitSlotTemplate:
+      type: object
+      required: [day_of_week, start_time, end_time, capacity_per_slot]
+      properties:
+        id: { type: string, format: uuid }
+        day_of_week: { type: string, enum: [MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY, ALL] }
+        start_time: { type: string, example: "10:00:00" }
+        end_time: { type: string, example: "11:00:00" }
+        capacity_per_slot: { type: integer, default: 1 }
+        is_active: { type: boolean, default: true }

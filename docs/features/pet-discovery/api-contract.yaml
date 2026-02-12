@@ -1,0 +1,214 @@
+openapi: 3.0.0
+info:
+  title: Malik Shelter API
+  version: 1.0.0
+  description: API for Pet Discovery & Inventory Management
+servers:
+  - url: https://api.malik-shelter.com/v1
+
+paths:
+  /animals:
+    get:
+      summary: List animals (Public Search)
+      operationId: listAnimals
+      tags: [Animals]
+      parameters:
+        - name: page
+          in: query
+          schema: { type: integer, default: 1 }
+        - name: limit
+          in: query
+          schema: { type: integer, default: 20 }
+        - name: species
+          in: query
+          schema: { type: string, enum: [Cat, Dog] }
+        - name: breed
+          in: query
+          schema: { type: string }
+        - name: gender
+          in: query
+          schema: { type: string, enum: [Male, Female] }
+        - name: age_min
+          in: query
+          schema: { type: integer }
+        - name: age_max
+          in: query
+          schema: { type: integer }
+        - name: traits
+          in: query
+          style: form
+          explode: false
+          schema: 
+            type: array
+            items: { type: string }
+      responses:
+        '200':
+          description: List of animals
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AnimalListResponse'
+
+    post:
+      summary: Create a new animal (Staff only)
+      operationId: createAnimal
+      tags: [Animals]
+      security: [{ bearerAuth: [] }]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateAnimalRequest'
+      responses:
+        '201':
+          description: Animal created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AnimalResponse'
+
+  /animals/{id}:
+    get:
+      summary: Get animal details
+      operationId: getAnimal
+      tags: [Animals]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: string, format: uuid }
+      responses:
+        '200':
+          description: Detailed animal profile
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AnimalDetailResponse'
+
+    put:
+      summary: Update animal (Staff only)
+      operationId: updateAnimal
+      tags: [Animals]
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: string, format: uuid }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateAnimalRequest'
+      responses:
+        '200':
+          description: Animal updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AnimalResponse'
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  schemas:
+    # --- Responses ---
+    AnimalListResponse:
+      type: object
+      properties:
+        success: { type: boolean, example: true }
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/AnimalSummary'
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+
+    AnimalResponse:
+      type: object
+      properties:
+        success: { type: boolean, example: true }
+        data:
+          $ref: '#/components/schemas/AnimalDetail'
+
+    AnimalDetailResponse:
+      type: object
+      properties:
+        success: { type: boolean, example: true }
+        data:
+          $ref: '#/components/schemas/AnimalDetail'
+        meta:
+          type: object
+          properties:
+            recommended:
+              type: array
+              items:
+                $ref: '#/components/schemas/AnimalSummary'
+
+    # --- Models ---
+    AnimalSummary:
+      type: object
+      properties:
+        id: { type: string, format: uuid }
+        name: { type: string }
+        species: { type: string }
+        breed: { type: string }
+        age_months: { type: integer }
+        gender: { type: string }
+        photo_url: { type: string }
+        status: { type: string, enum: [AVAILABLE, PENDING, ADOPTED] }
+        traits:
+          type: array
+          items: { type: string }
+
+    AnimalDetail:
+      allOf:
+        - $ref: '#/components/schemas/AnimalSummary'
+        - type: object
+          properties:
+            bio: { type: string }
+            origin: { type: string }
+            weight_kg: { type: number }
+            is_sterilized: { type: boolean }
+            medical_summary: { type: string }
+            gallery:
+              type: array
+              items:
+                type: object
+                properties:
+                  url: { type: string }
+                  is_main: { type: boolean }
+
+    CreateAnimalRequest:
+      type: object
+      required: [name, species, gender, age_months]
+      properties:
+        name: { type: string }
+        species: { type: string, enum: [Cat, Dog] }
+        breed: { type: string }
+        gender: { type: string, enum: [Male, Female] }
+        age_months: { type: integer }
+        bio: { type: string }
+        traits:
+          type: array
+          items: { type: string }
+
+    UpdateAnimalRequest:
+      allOf:
+        - $ref: '#/components/schemas/CreateAnimalRequest'
+        - type: object
+          properties:
+            status: { type: string, enum: [AVAILABLE, PENDING, ADOPTED, ARCHIVED] }
+
+    Pagination:
+      type: object
+      properties:
+        current_page: { type: integer }
+        total_pages: { type: integer }
+        total_items: { type: integer }
