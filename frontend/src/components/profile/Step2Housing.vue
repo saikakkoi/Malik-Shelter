@@ -83,7 +83,7 @@ const onFileChange = (e: Event) => {
         <div>
           <label class="block text-sm font-bold text-text-dark mb-1">Residence Type</label>
           <select v-model="form.residence_type"
-            class="w-full px-4 py-2 rounded-btn border border-primary/20 focus:border-primary outline-none font-form bg-white transition-colors"
+            class="w-full px-4 py-2 rounded-btn border border-primary/20 focus:border-primary outline-none font-form bg-[var(--color-surface,white)] text-[var(--color-text-dark)] transition-colors"
             :class="{ 'border-red-400': errors.residence_type }">
             <option value="" disabled>Residence Type</option>
             <option value="House">House</option>
@@ -121,7 +121,7 @@ const onFileChange = (e: Event) => {
       <div>
         <label class="block text-sm font-bold text-text-dark mb-1">Outdoor Area</label>
         <select v-model="form.outdoor_area"
-          class="w-full px-4 py-2 rounded-btn border border-primary/20 focus:border-primary outline-none font-form bg-white transition-colors"
+          class="w-full px-4 py-2 rounded-btn border border-primary/20 focus:border-primary outline-none font-form bg-[var(--color-surface,white)] text-[var(--color-text-dark)] transition-colors"
           :class="{ 'border-red-400': errors.outdoor_area }">
           <option value="" disabled>Outdoor Area</option>
           <option value="Fenced Garden">Fenced Garden</option>

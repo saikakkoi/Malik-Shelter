@@ -56,7 +56,7 @@ const overlayBadge = computed(() => {
 <template>
   <div
     @click="navigateToDetail"
-    class="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow cursor-pointer border border-gray-100 flex flex-col"
+    class="bg-white dark:bg-[#252320] rounded-2xl overflow-hidden shadow-sm hover:shadow-md dark:shadow-black/30 transition-shadow cursor-pointer border border-gray-100 dark:border-[#3a3730] flex flex-col"
   >
     <!-- Image Area -->
     <div class="relative bg-[#1a1a2e] h-52 overflow-hidden">
@@ -85,10 +85,10 @@ const overlayBadge = computed(() => {
     <div class="p-4 flex flex-col flex-1">
       <!-- Name + Age -->
       <div class="flex items-center justify-between mb-1">
-        <h3 class="text-lg font-bold text-[#2d2a1e]">{{ animal.name }}</h3>
+        <h3 class="text-lg font-bold text-[#2d2a1e] dark:text-[#f0ece4]">{{ animal.name }}</h3>
         <span
           v-if="ageDisplay"
-          class="text-xs font-semibold px-2.5 py-0.5 bg-[#eaf2d0] text-[#4a6020] rounded-full font-[family-name:var(--font-form)]"
+          class="text-xs font-semibold px-2.5 py-0.5 bg-[#eaf2d0] dark:bg-[#2d3d1a] text-[#4a6020] dark:text-[#a0c050] rounded-full font-[family-name:var(--font-form)]"
         >
           {{ ageDisplay }}
         </span>
@@ -100,7 +100,7 @@ const overlayBadge = computed(() => {
       </p>
 
       <!-- Traits -->
-      <div class="flex items-center gap-3 text-xs text-gray-500 font-[family-name:var(--font-form)] mb-4">
+      <div class="flex items-center gap-3 text-xs text-gray-500 dark:text-gray-400 font-[family-name:var(--font-form)] mb-4">
         <span class="flex items-center gap-1">
           <span class="text-gray-400">{{ genderIcon }}</span>
           {{ animal.gender }}
@@ -113,7 +113,7 @@ const overlayBadge = computed(() => {
 
       <!-- Button -->
       <button
-        class="mt-auto w-full py-2.5 rounded-full text-sm font-bold text-white bg-[#6b5a3e] hover:bg-[#5a4a30] transition-colors font-[family-name:var(--font-form)]"
+        class="mt-auto w-full py-2.5 rounded-full text-sm font-bold text-white bg-[#6b5a3e] hover:bg-[#5a4a30] dark:bg-[#8a7050] dark:hover:bg-[#7a6040] transition-colors font-[family-name:var(--font-form)]"
         @click.stop="navigateToDetail"
       >
         Adopt Me

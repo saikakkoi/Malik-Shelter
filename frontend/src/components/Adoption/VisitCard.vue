@@ -60,7 +60,7 @@ const canCancel = computed(() => {
 
 <template>
   <div
-    class="bg-white rounded-card shadow-soft p-5 border border-primary/10 overflow-hidden relative group hover:shadow-lg transition-all">
+    class="bg-[var(--color-surface,white)] rounded-card shadow-soft p-5 border border-primary/10 overflow-hidden relative group hover:shadow-lg transition-all">
     <!-- Status Badge -->
     <div class="absolute top-4 right-4 z-10">
       <Badge
@@ -120,7 +120,7 @@ const canCancel = computed(() => {
 
         <!-- Cancel Action -->
         <button v-if="canCancel" @click="$emit('cancel', visit.id)"
-          class="text-[10px] uppercase tracking-wider font-extrabold bg-rose-50 text-rose-400 px-2.5 py-1 rounded-lg flex items-center gap-1 hover:bg-rose-400 hover:text-white transition-all shadow-sm border border-rose-100">
+          class="text-[10px] uppercase tracking-wider font-extrabold bg-rose-50 dark:bg-rose-900/30 text-rose-400 dark:text-rose-300 px-2.5 py-1 rounded-lg flex items-center gap-1 hover:bg-rose-400 hover:text-white transition-all shadow-sm border border-rose-100 dark:border-rose-700/40">
           <XCircle class="w-3 h-3" /> Cancel Visit
         </button>
       </div>

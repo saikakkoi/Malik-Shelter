@@ -45,7 +45,7 @@ const getStatusLabel = (status: string) => {
 </script>
 
 <template>
-  <div class="bg-white rounded-[32px] shadow-soft border border-primary/10 overflow-hidden">
+  <div class="bg-[var(--color-surface,white)] rounded-[32px] shadow-soft border border-primary/10 overflow-hidden">
     <div v-if="loading" class="p-12 flex flex-col items-center justify-center">
       <DotLottieVue src="/loading-cat.lottie" autoplay loop style="width: 200px; height: 200px;" />
       <p class="text-muted font-bold animate-pulse">Fetching requests...</p>

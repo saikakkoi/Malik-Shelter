@@ -42,7 +42,7 @@ const handleConfirm = () => {
     leave-to-class="opacity-0">
     <div v-if="show" class="fixed inset-0 z-[200] flex items-center justify-center p-6 bg-dark/40 backdrop-blur-sm">
       <div
-        class="bg-white rounded-[40px] shadow-2xl border border-primary/10 max-w-lg w-full overflow-hidden relative animate-in zoom-in-95 duration-300">
+        class="bg-[var(--color-surface,white)] rounded-[40px] shadow-2xl border border-primary/10 max-w-lg w-full overflow-hidden relative animate-in zoom-in-95 duration-300">
         <!-- Header -->
         <div class="p-8 border-b border-primary/5 flex items-center justify-between">
           <div class="flex items-center gap-4">
@@ -67,7 +67,7 @@ const handleConfirm = () => {
             </label>
             <textarea v-model="notes" rows="6"
               placeholder="What were the results of the shelter visit? How did the pet and adopter interact? Enter mandatory notes here..."
-              class="w-full p-6 rounded-[24px] bg-primary/5 border-2 border-transparent focus:border-accent focus:bg-white outline-none transition-all text-dark resize-none font-form leading-relaxed text-lg"
+              class="w-full p-6 rounded-[24px] bg-[var(--color-surface-2,#fef0ef)] border-2 border-transparent focus:border-accent outline-none transition-all text-[var(--color-text-dark)] resize-none font-form leading-relaxed text-lg"
               :class="{ 'border-rose-300': error }"></textarea>
 
             <Transition enter-active-class="transition duration-200 ease-out"
@@ -91,14 +91,14 @@ const handleConfirm = () => {
         </div>
 
         <!-- Footer -->
-        <div class="p-8 pt-0 bg-white flex gap-4">
+        <div class="p-8 pt-0 bg-[var(--color-surface,white)] flex gap-4">
           <button @click="$emit('close')"
             class="flex-1 py-4 rounded-[20px] font-bold text-muted hover:bg-primary/5 transition-colors border border-primary/10">
             Cancel
           </button>
           <button @click="handleConfirm" :disabled="!notes.trim()"
             class="flex-1 py-4 rounded-[20px] font-bold text-md shadow-lg transition-all flex items-center justify-center gap-2 disabled:shadow-none disabled:cursor-not-allowed"
-            :class="notes.trim() ? 'bg-accent text-white shadow-accent/40 hover:scale-[1.02]' : 'bg-slate-200 text-slate-400'">
+            :class="notes.trim() ? 'bg-accent text-white shadow-accent/40 hover:scale-[1.02]' : 'bg-[var(--color-surface-2,#e2e8f0)] dark:bg-slate-700 text-[var(--color-text-dark)]/40'">
             Finalize Adoption 🐾
           </button>
         </div>

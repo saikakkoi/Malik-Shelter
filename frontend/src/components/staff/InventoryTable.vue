@@ -39,7 +39,7 @@ const getMainPhoto = (photos: any[]) => {
 </script>
 
 <template>
-  <div class="overflow-x-auto bg-white rounded-[24px] shadow-soft">
+  <div class="overflow-x-auto bg-[var(--color-surface,white)] rounded-[24px] shadow-soft">
     <table class="w-full text-left border-collapse">
       <thead>
         <tr class="bg-primary/10 text-accent uppercase text-xs font-bold tracking-wider">

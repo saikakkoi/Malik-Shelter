@@ -129,9 +129,9 @@ const goBack = () => {
                 <div 
                     class="w-10 h-10 rounded-full flex items-center justify-center font-bold transition-all duration-300 border-4 cursor-pointer hover:scale-110 active:scale-95"
                     :class="[
-                        currentStep === step.id ? 'bg-white border-primary text-primary' : 
+                        currentStep === step.id ? 'bg-[var(--color-surface,white)] border-primary text-primary' : 
                         currentStep > step.id ? 'bg-primary border-primary text-white' : 
-                        'bg-white border-primary/20 text-primary/30 hover:border-primary/50'
+                        'bg-[var(--color-surface,white)] border-primary/20 text-primary/30 hover:border-primary/50'
                     ]"
                     @click="currentStep = step.id"
                 >
@@ -154,7 +154,7 @@ const goBack = () => {
       <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
     </div>
 
-    <div v-else class="bg-white rounded-card shadow-soft p-8">
+    <div v-else class="bg-[var(--color-surface,white)] rounded-card shadow-soft p-8">
         <component 
             v-if="currentStep === 1" 
             :is="Step1Identity" 

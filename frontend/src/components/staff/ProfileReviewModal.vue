@@ -30,9 +30,9 @@ const closePreview = () => {
     leave-to-class="opacity-0"
   >
     <div v-if="show" class="fixed inset-0 z-[160] flex items-center justify-center p-6 bg-dark/40 backdrop-blur-sm">
-      <div class="bg-white rounded-[40px] shadow-2xl border border-primary/10 max-w-6xl w-full h-[90vh] overflow-hidden relative flex flex-col animate-in zoom-in-95 duration-300">
+      <div class="bg-[var(--color-surface,white)] rounded-[40px] shadow-2xl border border-primary/10 max-w-6xl w-full h-[90vh] overflow-hidden relative flex flex-col animate-in zoom-in-95 duration-300">
         <!-- Header -->
-        <div class="p-6 border-b border-primary/5 flex items-center justify-between bg-white relative z-10">
+        <div class="p-6 border-b border-primary/5 flex items-center justify-between bg-[var(--color-surface,white)] relative z-10">
           <div class="flex items-center gap-3">
             <div class="w-12 h-12 rounded-2xl bg-accent/10 flex items-center justify-center text-accent">
               <User class="w-6 h-6" />
@@ -48,11 +48,11 @@ const closePreview = () => {
         </div>
 
         <!-- Content -->
-        <div class="flex-1 overflow-y-auto p-6 space-y-8 bg-slate-50/30">
+        <div class="flex-1 overflow-y-auto p-6 space-y-8 bg-[var(--color-surface-2,#fafafa)]">
           <!-- Step 1 & 2 combined for widest view -->
           <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
             <!-- Step 1: Identity -->
-            <section class="space-y-4 bg-white p-6 rounded-[32px] border border-primary/5 shadow-sm">
+            <section class="space-y-4 bg-[var(--color-surface,white)] p-6 rounded-[32px] border border-primary/5 shadow-sm">
               <h3 class="flex items-center gap-2 text-lg font-bold text-accent font-heading border-b border-primary/5 pb-2">
                 <User class="w-5 h-5" /> 1. Identity & Contact
               </h3>
@@ -81,7 +81,7 @@ const closePreview = () => {
             </section>
 
             <!-- Step 2: Housing -->
-            <section class="space-y-4 bg-white p-6 rounded-[32px] border border-primary/5 shadow-sm">
+            <section class="space-y-4 bg-[var(--color-surface,white)] p-6 rounded-[32px] border border-primary/5 shadow-sm">
               <h3 class="flex items-center gap-2 text-lg font-bold text-accent font-heading border-b border-primary/5 pb-2">
                 <Home class="w-5 h-5" /> 2. Housing & Environment
               </h3>
@@ -124,7 +124,7 @@ const closePreview = () => {
           <!-- Step 3, 4, 5 in a tighter grid -->
           <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
             <!-- Step 3: Household -->
-            <section class="space-y-4 bg-white p-6 rounded-[32px] border border-primary/5 shadow-sm">
+            <section class="space-y-4 bg-[var(--color-surface,white)] p-6 rounded-[32px] border border-primary/5 shadow-sm">
               <h3 class="flex items-center gap-2 text-lg font-bold text-accent font-heading border-b border-primary/5 pb-2">
                 <Users class="w-5 h-5" /> 3. Household
               </h3>
@@ -149,7 +149,7 @@ const closePreview = () => {
             </section>
 
             <!-- Step 4: Experience -->
-            <section class="space-y-4 bg-white p-6 rounded-[32px] border border-primary/5 shadow-sm">
+            <section class="space-y-4 bg-[var(--color-surface,white)] p-6 rounded-[32px] border border-primary/5 shadow-sm">
               <h3 class="flex items-center gap-2 text-lg font-bold text-accent font-heading border-b border-primary/5 pb-2">
                 <Heart class="w-5 h-5" /> 4. Experience
               </h3>
@@ -166,7 +166,7 @@ const closePreview = () => {
             </section>
 
             <!-- Step 5: Lifestyle -->
-            <section class="space-y-4 bg-white p-6 rounded-[32px] border border-primary/5 shadow-sm">
+            <section class="space-y-4 bg-[var(--color-surface,white)] p-6 rounded-[32px] border border-primary/5 shadow-sm">
               <h3 class="flex items-center gap-2 text-lg font-bold text-accent font-heading border-b border-primary/5 pb-2">
                 <Clock class="w-5 h-5" /> 5. Lifestyle
               </h3>

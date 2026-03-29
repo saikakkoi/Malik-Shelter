@@ -22,7 +22,7 @@ const handleConfirm = () => {
         leave-active-class="transition duration-200 ease-in" leave-from-class="opacity-100 scale-100"
         leave-to-class="opacity-0 scale-95">
         <div
-          class="bg-white rounded-[40px] shadow-2xl border border-primary/10 max-w-sm w-full overflow-hidden relative">
+          class="bg-[var(--color-surface,white)] rounded-[40px] shadow-2xl border border-primary/10 max-w-sm w-full overflow-hidden relative">
           <!-- Close Button -->
           <button @click="close"
             class="absolute top-6 right-6 p-2 hover:bg-primary/5 rounded-2xl transition-colors z-10">

@@ -79,7 +79,7 @@ const nextDays = Array.from({ length: 7 }, (_, i) => {
     leave-to-class="opacity-0">
     <div v-if="isOpen" class="fixed inset-0 z-[150] flex items-center justify-center p-6 bg-dark/40 backdrop-blur-sm">
       <div
-        class="bg-white rounded-[40px] shadow-2xl border border-primary/10 max-w-lg w-full overflow-hidden relative animate-in zoom-in-95 duration-300">
+        class="bg-[var(--color-surface,white)] rounded-[40px] shadow-2xl border border-primary/10 max-w-lg w-full overflow-hidden relative animate-in zoom-in-95 duration-300">
         <!-- Close Button -->
         <button @click="$emit('close')"
           class="absolute top-6 right-6 p-2 hover:bg-primary/5 rounded-2xl transition-colors z-10">

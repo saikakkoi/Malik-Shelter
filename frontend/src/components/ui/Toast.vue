@@ -16,10 +16,10 @@ const getIcon = (type: string) => {
 
 const getStyles = (type: string) => {
   switch (type) {
-    case 'success': return 'bg-emerald-50 border-emerald-100 text-emerald-800'
-    case 'error': return 'bg-rose-50 border-rose-100 text-rose-800'
-    case 'info': return 'bg-blue-50 border-blue-100 text-blue-800'
-    default: return 'bg-white border-primary/10 text-dark'
+    case 'success': return 'bg-emerald-50 dark:bg-emerald-900/30 border-emerald-100 dark:border-emerald-700/40 text-emerald-800 dark:text-emerald-200'
+    case 'error': return 'bg-rose-50 dark:bg-rose-900/30 border-rose-100 dark:border-rose-700/40 text-rose-800 dark:text-rose-200'
+    case 'info': return 'bg-blue-50 dark:bg-blue-900/30 border-blue-100 dark:border-blue-700/40 text-blue-800 dark:text-blue-200'
+    default: return 'bg-[var(--color-surface,white)] border-primary/10 text-[var(--color-text-dark)]'
   }
 }
 
@@ -55,7 +55,7 @@ const getIconStyles = (type: string) => {
         </div>
         
         <!-- Icon for Other Types -->
-        <div v-else class="p-2 bg-white/50 rounded-2xl border border-white/50 shrink-0 mt-0.5">
+        <div v-else class="p-2 bg-white/20 dark:bg-white/10 rounded-2xl border border-white/30 shrink-0 mt-0.5">
           <component :is="getIcon(toast.type)" class="w-5 h-5" :class="getIconStyles(toast.type)" />
         </div>
         

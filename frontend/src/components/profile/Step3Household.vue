@@ -56,7 +56,7 @@ const handleNext = () => {
         <div>
           <label class="block text-sm font-bold text-text-dark mb-1">Total Family Member</label>
           <input v-model.number="form.resident_count" type="number" min="1" placeholder="Total Family Member"
-            class="w-full px-4 py-2 rounded-btn border border-primary/20 focus:border-primary outline-none font-form transition-colors"
+            class="w-full px-4 py-2 rounded-btn border border-primary/20 focus:border-primary outline-none font-form transition-colors bg-[var(--color-surface-2,white)] text-[var(--color-text-dark)]"
             :class="{ 'border-red-400': errors.resident_count }" />
           <p v-if="errors.resident_count" class="text-red-400 text-xs mt-1">{{ errors.resident_count }}</p>
         </div>

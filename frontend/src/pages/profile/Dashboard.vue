@@ -191,7 +191,7 @@ const nextUpcomingVisit = computed(() => {
         <!-- Left Column: Profile Section -->
         <div class="lg:col-span-2 space-y-6">
           <!-- Profile Card -->
-          <div class="bg-white rounded-card shadow-soft p-6 md:p-8">
+          <div class="bg-[var(--color-surface,white)] rounded-card shadow-soft p-6 md:p-8">
             <div class="flex items-center justify-between mb-6">
               <h2 class="text-2xl md:text-3xl font-bold text-text-dark">YOUR ADOPTER PROFILE</h2>
             </div>
@@ -229,7 +229,7 @@ const nextUpcomingVisit = computed(() => {
             <!-- Step Cards Grid -->
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
               <div v-for="step in steps" :key="step.id"
-                class="bg-white rounded-card shadow-sm p-4 border-b-4 transition-all hover:-translate-y-1 cursor-pointer"
+                class="bg-[var(--color-surface,white)] rounded-card shadow-sm p-4 border-b-4 transition-all hover:-translate-y-1 cursor-pointer"
                 :class="isStepComplete(step.fields) ? 'border-primary' : 'border-accent/40'" @click="goToStep(step.id)">
                 <div class="flex justify-between items-start mb-3">
                   <span class="bg-secondary/20 text-text-dark px-2 py-1 rounded-full text-xs font-bold font-form">
@@ -263,7 +263,7 @@ const nextUpcomingVisit = computed(() => {
             </div>
 
             <!-- Empty State -->
-            <div v-else class="bg-white rounded-card shadow-soft p-6 text-center">
+            <div v-else class="bg-[var(--color-surface,white)] rounded-card shadow-soft p-6 text-center">
               <div class="flex items-center gap-2 mb-4 justify-center">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                   stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -298,7 +298,7 @@ const nextUpcomingVisit = computed(() => {
           </div>
 
           <!-- Furry Friends Card -->
-          <div class="bg-white rounded-card shadow-soft p-6">
+          <div class="bg-[var(--color-surface,white)] rounded-card shadow-soft p-6">
             <h3 class="text-xl font-bold text-text-dark mb-4">Furry Friends</h3>
 
             <div v-if="loadingPets" class="text-center py-4">

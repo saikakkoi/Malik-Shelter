@@ -43,11 +43,11 @@ function selectGender(value: string) {
 
 <template>
   <aside class="w-56 shrink-0">
-    <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-5">
+    <div class="bg-white dark:bg-[#252320] rounded-2xl border border-gray-100 dark:border-[#3a3730] shadow-sm p-5 transition-colors duration-300">
       <!-- Header -->
       <div class="mb-5">
-        <h2 class="font-bold text-base text-[#3d3522]">Filters</h2>
-        <p class="text-xs text-gray-400 mt-0.5 font-[family-name:var(--font-form)]">Find your friend</p>
+        <h2 class="font-bold text-base text-[#3d3522] dark:text-[#f0ece4]">Filters</h2>
+        <p class="text-xs text-gray-400 dark:text-gray-500 mt-0.5 font-[family-name:var(--font-form)]">Find your friend</p>
       </div>
 
       <!-- Species List -->
@@ -58,8 +58,8 @@ function selectGender(value: string) {
           @click="selectSpecies(opt.value)"
           class="w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-sm font-[family-name:var(--font-form)] transition-all"
           :class="filters.species === opt.value
-            ? 'bg-[#d8e5b0] text-[#3d3522] font-semibold'
-            : 'text-gray-600 hover:bg-gray-50'"
+            ? 'bg-[#d8e5b0] dark:bg-[#3d4a28] text-[#3d3522] dark:text-[#d8e5b0] font-semibold'
+            : 'text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-[#2e2b27]'"
         >
           <span class="text-base">{{ opt.icon }}</span>
           <span>{{ opt.label }}</span>
@@ -67,11 +67,11 @@ function selectGender(value: string) {
       </div>
 
       <!-- Divider -->
-      <div class="border-t border-gray-100 mb-5"></div>
+      <div class="border-t border-gray-100 dark:border-[#3a3730] mb-5"></div>
 
       <!-- Gender -->
       <div class="mb-5">
-        <p class="text-[10px] tracking-widest uppercase font-semibold text-gray-400 mb-3 font-[family-name:var(--font-form)]">Gender</p>
+        <p class="text-[10px] tracking-widest uppercase font-semibold text-gray-400 dark:text-gray-500 mb-3 font-[family-name:var(--font-form)]">Gender</p>
         <div class="flex gap-2">
           <button
             v-for="g in genderOptions"
@@ -79,8 +79,8 @@ function selectGender(value: string) {
             @click="selectGender(g)"
             class="flex-1 py-1.5 rounded-full text-sm font-[family-name:var(--font-form)] transition-all border"
             :class="filters.gender === g
-              ? 'bg-[#d8e5b0] border-[#c4cea1] text-[#3d3522] font-semibold'
-              : 'border-gray-200 text-gray-500 hover:border-gray-300'"
+              ? 'bg-[#d8e5b0] dark:bg-[#3d4a28] border-[#c4cea1] dark:border-[#5a7030] text-[#3d3522] dark:text-[#d8e5b0] font-semibold'
+              : 'border-gray-200 dark:border-[#3a3730] text-gray-500 dark:text-gray-400 hover:border-gray-300 dark:hover:border-gray-500'"
           >
             {{ g }}
           </button>
@@ -90,7 +90,7 @@ function selectGender(value: string) {
       <!-- Clear All -->
       <button
         @click="clearAll"
-        class="text-xs text-gray-400 hover:text-gray-600 font-[family-name:var(--font-form)] transition-colors"
+        class="text-xs text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300 font-[family-name:var(--font-form)] transition-colors"
       >
         Clear All
       </button>

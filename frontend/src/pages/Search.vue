@@ -96,7 +96,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="min-h-screen bg-[#f5f0ea] flex flex-col">
+  <div class="min-h-screen bg-[#f5f0ea] dark:bg-[#1a1814] flex flex-col transition-colors duration-300">
     <!-- Page Body -->
     <div class="flex gap-6 px-8 py-8 flex-1">
       <!-- Sidebar -->
@@ -107,18 +107,18 @@ onMounted(() => {
         <!-- Section Header -->
         <div class="flex items-start justify-between mb-6">
           <div>
-            <h1 class="text-3xl font-bold text-[#2d2a1e] leading-tight">Available for Adoption</h1>
+            <h1 class="text-3xl font-bold text-[#2d2a1e] dark:text-[#f0ece4] leading-tight">Available for Adoption</h1>
             <p class="text-sm text-gray-500 mt-1 font-[family-name:var(--font-form)]">
               Meet the residents of Malik Shelter looking for a forever home.
             </p>
           </div>
 
           <!-- View Toggle -->
-          <div class="flex items-center gap-1 bg-white rounded-lg border border-gray-200 p-1">
+          <div class="flex items-center gap-1 bg-white dark:bg-[#2e2b27] rounded-lg border border-gray-200 dark:border-[#3a3730] p-1">
             <button
               @click="viewMode = 'grid'"
               class="p-1.5 rounded transition-colors"
-              :class="viewMode === 'grid' ? 'bg-gray-100 text-gray-700' : 'text-gray-400 hover:text-gray-600'"
+              :class="viewMode === 'grid' ? 'bg-gray-100 dark:bg-[#3a3730] text-gray-700 dark:text-gray-200' : 'text-gray-400 hover:text-gray-600 dark:hover:text-gray-300'"
             >
               <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 16 16">
                 <rect x="1" y="1" width="6" height="6" rx="1"/>
@@ -130,7 +130,7 @@ onMounted(() => {
             <button
               @click="viewMode = 'list'"
               class="p-1.5 rounded transition-colors"
-              :class="viewMode === 'list' ? 'bg-gray-100 text-gray-700' : 'text-gray-400 hover:text-gray-600'"
+              :class="viewMode === 'list' ? 'bg-gray-100 dark:bg-[#3a3730] text-gray-700 dark:text-gray-200' : 'text-gray-400 hover:text-gray-600 dark:hover:text-gray-300'"
             >
               <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 16 16">
                 <rect x="1" y="2" width="14" height="2" rx="1"/>
@@ -176,7 +176,7 @@ onMounted(() => {
             <button
               @click="loadMore"
               :disabled="loadingMore"
-              class="flex items-center gap-2 px-8 py-3 bg-[#ede8e0] hover:bg-[#e0d9ce] text-[#6b5a3e] font-semibold rounded-full text-sm font-[family-name:var(--font-form)] transition-colors disabled:opacity-60"
+              class="flex items-center gap-2 px-8 py-3 bg-[#ede8e0] hover:bg-[#e0d9ce] dark:bg-[#2e2b27] dark:hover:bg-[#3a3730] text-[#6b5a3e] dark:text-[#c4a96b] font-semibold rounded-full text-sm font-[family-name:var(--font-form)] transition-colors disabled:opacity-60"
             >
               <span>{{ loadingMore ? 'Loading...' : 'Load more friends' }}</span>
               <svg v-if="!loadingMore" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -187,40 +187,5 @@ onMounted(() => {
         </template>
       </main>
     </div>
-
-    <!-- Footer -->
-    <footer class="bg-[#2d2a1e] text-white mt-8">
-      <div class="px-8 py-8 flex items-center justify-between">
-        <!-- Brand -->
-        <div>
-          <div class="text-lg font-bold">Malik Shelter</div>
-          <p class="text-xs text-gray-400 mt-1 font-[family-name:var(--font-form)]">
-            © 2024 Malik Shelter. Every pet deserves a home.
-          </p>
-        </div>
-
-        <!-- Links -->
-        <div class="flex items-center gap-6 text-xs text-gray-400 font-[family-name:var(--font-form)]">
-          <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
-          <a href="#" class="hover:text-white transition-colors">Terms of Service</a>
-          <a href="#" class="hover:text-white transition-colors">Contact Us</a>
-          <a href="#" class="hover:text-white transition-colors">Volunteer</a>
-        </div>
-
-        <!-- Social -->
-        <div class="flex items-center gap-3">
-          <button class="w-8 h-8 rounded-full border border-gray-600 flex items-center justify-center hover:border-gray-400 transition-colors">
-            <svg class="w-3.5 h-3.5 text-gray-400" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/>
-            </svg>
-          </button>
-          <button class="w-8 h-8 rounded-full border border-gray-600 flex items-center justify-center hover:border-gray-400 transition-colors">
-            <svg class="w-3.5 h-3.5 text-gray-400" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M4 4h16a2 2 0 012 2v12a2 2 0 01-2 2H4a2 2 0 01-2-2V6a2 2 0 012-2zm0 2v.01L12 13 20 6.01V6H4zm0 12h16V8l-8 5.99L4 8v10z"/>
-            </svg>
-          </button>
-        </div>
-      </div>
-    </footer>
   </div>
 </template>

@@ -113,13 +113,13 @@ onMounted(fetchAnimal)
             <TraitBadge variant="primary">{{ animal.weight_kg }} kg</TraitBadge>
           </div>
 
-          <div class="bg-white p-8 rounded-[30px] shadow-soft space-y-6">
+          <div class="bg-white dark:bg-[#252320] p-8 rounded-[30px] shadow-soft space-y-6 transition-colors duration-300">
             <div class="space-y-2">
               <h3 class="text-xl font-bold text-accent">About {{ animal.name }}</h3>
               <p class="text-lg leading-relaxed text-dark">{{ animal.bio }}</p>
             </div>
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-6 border-t border-primary/20">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-6 border-t border-primary/20 dark:border-[#3a3730]">
               <div v-if="animal.medical_summary">
                 <p class="text-sm text-muted mb-1">Medical Summary</p>
                 <p class="font-bold text-dark">{{ animal.medical_summary }}</p>
@@ -159,7 +159,7 @@ onMounted(fetchAnimal)
       />
 
       <!-- Recommendations -->
-      <section v-if="animal.recommendations?.length" class="pt-12 border-t border-primary/20">
+      <section v-if="animal.recommendations?.length" class="pt-12 border-t border-primary/20 dark:border-[#3a3730]">
         <h2 class="text-3xl text-accent mb-8">Meet some other {{ animal.species }}s</h2>
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           <PetCard v-for="rec in animal.recommendations" :key="rec.id" :animal="rec" />

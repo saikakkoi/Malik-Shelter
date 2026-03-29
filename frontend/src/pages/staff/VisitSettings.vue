@@ -97,7 +97,7 @@ const formatTime = (time: string) => {
         <Loader2 class="w-12 h-12 text-primary animate-spin" />
       </div>
 
-      <div v-else-if="!state.templates.length" class="bg-white rounded-[40px] p-20 text-center shadow-soft border border-primary/5">
+      <div v-else-if="!state.templates.length" class="bg-[var(--color-surface,white)] rounded-[40px] p-20 text-center shadow-soft border border-primary/5">
         <div class="bg-primary/5 w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-8">
           <Calendar class="w-12 h-12 text-muted" />
         </div>
@@ -115,7 +115,7 @@ const formatTime = (time: string) => {
         <div 
           v-for="template in state.templates" 
           :key="template.id"
-          class="bg-white p-8 rounded-[40px] shadow-soft border border-primary/10 hover:shadow-lg transition-all relative group"
+          class="bg-[var(--color-surface,white)] p-8 rounded-[40px] shadow-soft border border-primary/10 hover:shadow-lg transition-all relative group"
         >
           <div class="flex justify-between items-start mb-6">
             <div class="bg-accent/10 p-4 rounded-3xl">

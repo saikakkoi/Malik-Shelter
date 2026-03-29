@@ -1,6 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&display=swap');
 @import "tailwindcss";
 
+@variant dark (&:where(.dark, .dark *));
+
 @theme {
   /* Primary Palette */
   --color-primary: #C4CEA1;
@@ -32,10 +34,25 @@
   --shadow-soft: 0px 4px 12px rgba(196, 206, 161, 0.3);
 }
 
+/* Dark Mode Overrides */
+:root.dark {
+  --color-background: #1a1814;
+  --color-surface: #252320;
+  --color-surface-2: #2e2b27;
+  --color-text-dark: #f0ece4;
+  --color-text-muted: #a0998e;
+  --color-primary: #8a9870;
+  --color-secondary: #a07872;
+  --color-accent: #c47d40;
+  --color-border: #3a3730;
+  --color-header-bg: #1e1c18;
+}
+
 /* Base Styles */
 @layer base {
   body {
     @apply bg-[var(--color-background)] text-[var(--color-text-dark)] font-sans;
+    transition: background-color 0.3s ease, color 0.3s ease;
   }
 
   h1,

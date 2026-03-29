@@ -58,7 +58,7 @@ const handleSubmit = () => {
       <div>
         <label class="block text-sm font-bold text-text-dark mb-1">How much time will the pet spend alone daily?</label>
         <select v-model="form.time_pet_alone"
-          class="w-full px-4 py-2 rounded-btn border border-primary/20 focus:border-primary outline-none font-form bg-white transition-colors"
+          class="w-full px-4 py-2 rounded-btn border border-primary/20 focus:border-primary outline-none font-form bg-[var(--color-surface,white)] text-[var(--color-text-dark)] transition-colors"
           :class="{ 'border-red-400': errors.time_pet_alone }">
           <option value="" disabled>How much time will the pet spend alone daily?</option>
           <option value="Less than 2 hours">Less than 2 hours</option>
@@ -74,7 +74,7 @@ const handleSubmit = () => {
         <div class="flex flex-wrap gap-4 pt-1">
           <label v-for="level in ['Low', 'Medium', 'High']" :key="level"
             class="flex items-center gap-2 cursor-pointer font-form text-sm border px-4 py-2 rounded-btn transition-colors"
-            :class="form.activity_level === level ? 'bg-primary text-white border-primary' : 'bg-white text-text-dark/60 border-primary/20'">
+            :class="form.activity_level === level ? 'bg-primary text-white border-primary' : 'bg-[var(--color-surface,white)] text-text-dark/60 border-primary/20'">
             <input type="radio" v-model="form.activity_level" :value="level" class="hidden" />
             {{ level }}
           </label>
@@ -86,7 +86,7 @@ const handleSubmit = () => {
         <label class="block text-sm font-bold text-text-dark mb-1">Future Plans (Optional)</label>
         <textarea v-model="form.future_plans" rows="3"
           placeholder="Any planned moves, lifestyle changes, or major events in the next year?"
-          class="w-full px-4 py-2 rounded-btn border border-primary/20 focus:border-primary outline-none font-form transition-colors resize-none"></textarea>
+          class="w-full px-4 py-2 rounded-btn border border-primary/20 focus:border-primary outline-none font-form transition-colors resize-none bg-[var(--color-surface-2,white)] text-[var(--color-text-dark)]"></textarea>
       </div>
     </div>
 

@@ -38,7 +38,7 @@ const handleSubmit = () => {
     <div class="absolute inset-0 bg-dark/40 backdrop-blur-sm" @click="$emit('close')"></div>
 
     <!-- Modal Content -->
-    <div class="relative bg-white w-full max-w-md rounded-[32px] shadow-2xl overflow-hidden animate-in fade-in zoom-in duration-300">
+    <div class="relative bg-[var(--color-surface,white)] w-full max-w-md rounded-[32px] shadow-2xl overflow-hidden animate-in fade-in zoom-in duration-300">
       <div class="p-8">
         <div class="flex justify-between items-start mb-6">
           <div>
@@ -58,7 +58,7 @@ const handleSubmit = () => {
             </label>
             <select 
               v-model="form.day_of_week"
-              class="w-full bg-primary/5 border-none rounded-2xl px-5 py-4 focus:ring-2 focus:ring-primary/20 transition-all font-bold text-dark appearance-none"
+              class="w-full bg-primary/5 border-none rounded-2xl px-5 py-4 focus:ring-2 focus:ring-primary/20 transition-all font-bold text-[var(--color-text-dark)] appearance-none"
             >
               <option v-for="day in days" :key="day.value" :value="day.value">{{ day.label }}</option>
             </select>
@@ -74,7 +74,7 @@ const handleSubmit = () => {
                 v-model="form.start_time"
                 type="time"
                 step="1"
-                class="w-full bg-primary/5 border-none rounded-2xl px-5 py-4 focus:ring-2 focus:ring-primary/20 transition-all font-bold text-dark"
+                class="w-full bg-primary/5 border-none rounded-2xl px-5 py-4 focus:ring-2 focus:ring-primary/20 transition-all font-bold text-[var(--color-text-dark)]"
                 required
               />
             </div>
@@ -86,7 +86,7 @@ const handleSubmit = () => {
                 v-model="form.end_time"
                 type="time"
                 step="1"
-                class="w-full bg-primary/5 border-none rounded-2xl px-5 py-4 focus:ring-2 focus:ring-primary/20 transition-all font-bold text-dark"
+                class="w-full bg-primary/5 border-none rounded-2xl px-5 py-4 focus:ring-2 focus:ring-primary/20 transition-all font-bold text-[var(--color-text-dark)]"
                 required
               />
             </div>

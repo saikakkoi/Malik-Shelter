@@ -120,7 +120,7 @@ onMounted(fetchRequests)
         <p class="text-muted text-lg">Manage visitation schedules and adoption approvals</p>
       </div>
 
-      <div class="flex items-center gap-3 bg-white p-2 rounded-2xl shadow-soft border border-primary/10">
+      <div class="flex items-center gap-3 bg-[var(--color-surface,white)] p-2 rounded-2xl shadow-soft border border-primary/10">
         <div class="relative flex-1 min-w-[200px]">
           <Search class="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted" />
           <input v-model="filters.adopter_name" type="text" placeholder="Search Adopter..."
