@@ -15,7 +15,7 @@ const userProfile = ref<any>(null)
 const fetchUserProfile = async () => {
   if (!isAuthenticated()) return
   try {
-    const res = await fetch('http://localhost:3000/me/profile', {
+    const res = await fetch(import.meta.env.VITE_API_BASE_URL + '/me/profile', {
       headers: {
         'Authorization': `Bearer ${state.token}`
       }

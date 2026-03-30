@@ -41,7 +41,7 @@ onMounted(async () => {
 const fetchRecommendedPets = async () => {
   loadingPets.value = true
   try {
-    const res = await fetch('http://localhost:3000/animals?limit=3&status=AVAILABLE')
+    const res = await fetch(import.meta.env.VITE_API_BASE_URL + '/animals?limit=3&status=AVAILABLE')
     if (!res.ok) throw new Error('Failed to fetch pets')
     const data = await res.json()
     recommendedPets.value = data.items || []

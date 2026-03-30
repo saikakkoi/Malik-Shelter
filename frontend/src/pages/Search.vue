@@ -25,7 +25,7 @@ interface SearchResult {
   items: Animal[]
 }
 
-const API_BASE = 'http://localhost:3000'
+const API_BASE = import.meta.env.VITE_API_BASE_URL
 
 const animals = ref<Animal[]>([])
 const loading = ref(false)

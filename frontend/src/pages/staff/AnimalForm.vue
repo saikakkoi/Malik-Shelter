@@ -99,7 +99,7 @@ const energyOptions = ['1', '2', '3', '4', '5']
 onMounted(async () => {
   if (isEdit && props.id) {
     try {
-      const res = await fetch(`http://localhost:3000/animals/${props.id}`, {
+      const res = await fetch(import.meta.env.VITE_API_BASE_URL + `/animals/${props.id}`, {
         headers: {
           'Authorization': `Bearer ${authState.token}`
         }
@@ -192,8 +192,8 @@ async function handleSubmit() {
     })
 
     const url = isEdit
-      ? `http://localhost:3000/animals/${props.id}`
-      : 'http://localhost:3000/animals'
+      ? import.meta.env.VITE_API_BASE_URL + `/animals/${props.id}`
+      : import.meta.env.VITE_API_BASE_URL + '/animals'
 
     const res = await fetch(url, {
       method: isEdit ? 'PUT' : 'POST',

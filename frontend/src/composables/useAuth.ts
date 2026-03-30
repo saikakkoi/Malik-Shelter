@@ -23,7 +23,7 @@ export function useAuth() {
   const login = async (email: string, password: string) => {
     state.loading = true
     try {
-      const res = await fetch('http://localhost:3000/auth/login', {
+      const res = await fetch(import.meta.env.VITE_API_BASE_URL + '/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password })
@@ -50,7 +50,7 @@ export function useAuth() {
   const register = async (email: string, password: string, fullName: string) => {
     state.loading = true
     try {
-      const res = await fetch('http://localhost:3000/auth/register', {
+      const res = await fetch(import.meta.env.VITE_API_BASE_URL + '/auth/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password, fullName })

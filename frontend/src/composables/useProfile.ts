@@ -11,7 +11,7 @@ export function useProfile() {
     loading.value = true
     error.value = null
     try {
-      const res = await fetch('http://localhost:3000/me/profile', {
+      const res = await fetch(import.meta.env.VITE_API_BASE_URL + '/me/profile', {
         headers: {
           'Authorization': `Bearer ${state.token}`
         }
@@ -37,7 +37,7 @@ export function useProfile() {
     loading.value = true
     error.value = null
     try {
-      const res = await fetch('http://localhost:3000/me/profile', {
+      const res = await fetch(import.meta.env.VITE_API_BASE_URL + '/me/profile', {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
@@ -65,7 +65,7 @@ export function useProfile() {
       formData.append('photo', file)
       if (description) formData.append('description', description)
 
-      const res = await fetch('http://localhost:3000/me/profile/photos', {
+      const res = await fetch(import.meta.env.VITE_API_BASE_URL + '/me/profile/photos', {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${state.token}`
@@ -89,7 +89,7 @@ export function useProfile() {
     loading.value = true
     error.value = null
     try {
-      const res = await fetch(`http://localhost:3000/me/profile/photos/${photoId}`, {
+      const res = await fetch(import.meta.env.VITE_API_BASE_URL + `/me/profile/photos/${photoId}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${state.token}`

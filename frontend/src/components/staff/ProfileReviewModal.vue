@@ -2,6 +2,8 @@
 import { ref } from 'vue'
 import { X, User, Home, Users, Heart, Camera, Phone, MapPin, Clock } from 'lucide-vue-next'
 
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL
+
 defineProps<{
   show: boolean
   profile: any
@@ -108,9 +110,9 @@ const closePreview = () => {
                     v-for="photo in profile.home_photos" 
                     :key="photo.id" 
                     class="w-24 h-24 flex-shrink-0 rounded-xl overflow-hidden border border-primary/5 relative group cursor-pointer hover:ring-2 hover:ring-primary/20 transition-all"
-                    @click="openPreview('http://localhost:3000' + photo.photo_url)"
+                    @click="openPreview(API_BASE_URL + photo.photo_url)"
                   >
-                    <img :src="'http://localhost:3000' + photo.photo_url" class="w-full h-full object-cover" />
+                    <img :src="API_BASE_URL + photo.photo_url" class="w-full h-full object-cover" />
                     <div class="absolute inset-0 bg-dark/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                       <Search class="w-5 h-5 text-white" />
                     </div>

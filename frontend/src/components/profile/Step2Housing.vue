@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { reactive, onMounted, ref } from 'vue'
 
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL
+
 const props = defineProps<{
   initialData?: any
   loading?: boolean
@@ -137,7 +139,7 @@ const onFileChange = (e: Event) => {
         <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
           <div v-for="photo in initialData?.home_photos" :key="photo.id"
             class="relative aspect-square rounded-card overflow-hidden group shadow-soft">
-            <img :src="'http://localhost:3000' + photo.photo_url" class="w-full h-full object-cover" />
+            <img :src="API_BASE_URL + photo.photo_url" class="w-full h-full object-cover" />
             <button @click="emit('delete-photo', photo.id)"
               class="absolute top-1 right-1 bg-red-500 text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"

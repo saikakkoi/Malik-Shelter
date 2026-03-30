@@ -11,7 +11,7 @@ const animals = ref([])
 const loading = ref(true)
 const error = ref<string | null>(null)
 
-const API_BASE = 'http://localhost:3000'
+const API_BASE = import.meta.env.VITE_API_BASE_URL
 
 async function fetchInventory() {
   loading.value = true
